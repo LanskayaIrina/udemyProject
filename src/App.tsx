@@ -20,6 +20,8 @@ const expenses: Expense[] = [
 
 function App() {
   const [newExpenses, setNewExpenses] = useState([...expenses]);
+  const [currentYear, setCurrentYear] = useState(2020);
+
   const saveExpenseDataHandler = (enteredExpenseData: Expense) => {
     const expenseData = {
       ...enteredExpenseData,
@@ -30,6 +32,7 @@ function App() {
   };
 
   const filterByYear = (year: number) => {
+    setCurrentYear(year);
     setNewExpenses([
       ...expenses.filter((el) => el.date.getFullYear() === year),
     ]);
@@ -40,7 +43,10 @@ function App() {
       <NewExpense addNewExpense={saveExpenseDataHandler} />
 
       <div className="card expenses">
-        <ExpensesFilter onFilterByYear={filterByYear} />
+        <ExpensesFilter
+          currentYear={currentYear}
+          onFilterByYear={filterByYear}
+        />
         {newExpenses.map((expense) => (
           <ExpenseItem key={expense.date.toISOString()} expense={expense} />
         ))}
