@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import { Expense } from "../../../App";
+
 import { NewExpenseButton } from "../NewExpense.style";
 import {
   ControlInput,
@@ -7,7 +10,6 @@ import {
   NewExpenseControl,
   NewExpenseControls,
 } from "./ExpenseForm.style";
-import { Expense } from "../../../App";
 
 interface UserInput {
   enteredTitle: string;
@@ -27,10 +29,9 @@ export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
   });
 
   const titleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setUserInput({ ...userInput, enteredTitle: e.currentTarget.value });
-    // setUserInput((prevState) => {
-    //   return { ...prevState, enteredTitle: e.currentTarget.value };
-    // });
+    setUserInput((prevState) => {
+      return { ...prevState, enteredTitle: e.currentTarget.value };
+    });
   };
 
   const amountChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
@@ -46,7 +47,6 @@ export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log({ ...userInput, enteredDate: new Date(userInput.enteredDate) });
 
     if (
       !userInput.enteredDate ||
@@ -61,6 +61,7 @@ export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
       price: +userInput.enteredAmount,
       date: new Date(userInput.enteredDate),
     });
+
     setUserInput({
       enteredTitle: "",
       enteredAmount: "",

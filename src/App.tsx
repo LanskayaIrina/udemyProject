@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "./App.css";
+
 import { ExpenseItem } from "./components/ExpenseItem/ExpenseItem";
 import { NewExpense } from "./components/NewExpense/NewExpense";
 import { ExpensesFilter } from "./components/ExpenseFilter/ExpenseFilter";
+
+import "./App.css";
 
 export interface Expense {
   date: Date;
@@ -36,8 +38,9 @@ function App() {
   return (
     <div className="App">
       <NewExpense addNewExpense={saveExpenseDataHandler} />
-      <ExpensesFilter onFilterByYear={filterByYear} />
+
       <div className="card expenses">
+        <ExpensesFilter onFilterByYear={filterByYear} />
         {newExpenses.map((expense) => (
           <ExpenseItem key={expense.date.toISOString()} expense={expense} />
         ))}
