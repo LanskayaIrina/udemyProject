@@ -10,6 +10,7 @@ import {
   NewExpenseControl,
   NewExpenseControls,
 } from "./ExpenseForm.style";
+import { DarkButton } from "../../shared/Buttons/DarkButton";
 
 interface UserInput {
   enteredTitle: string;
@@ -19,9 +20,13 @@ interface UserInput {
 
 interface ExpenseFormProps {
   onSaveExpanseData(state: Expense): void;
+  onCancel(): void;
 }
 
-export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
+export const ExpenseForm = ({
+  onSaveExpanseData,
+  onCancel,
+}: ExpenseFormProps) => {
   const [userInput, setUserInput] = useState<UserInput>({
     enteredTitle: "",
     enteredAmount: "",
@@ -29,9 +34,7 @@ export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
   });
 
   const titleChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setUserInput((prevState) => {
-      return { ...prevState, enteredTitle: e.currentTarget.value };
-    });
+    setUserInput({ ...userInput, enteredTitle: e.currentTarget.value });
   };
 
   const amountChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
@@ -61,6 +64,8 @@ export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
       price: +userInput.enteredAmount,
       date: new Date(userInput.enteredDate),
     });
+
+    onCancel();
 
     setUserInput({
       enteredTitle: "",
@@ -102,7 +107,8 @@ export const ExpenseForm = ({ onSaveExpanseData }: ExpenseFormProps) => {
         </NewExpenseControl>
       </NewExpenseControls>
       <ExpenseActions>
-        <NewExpenseButton type="submit">add expense</NewExpenseButton>
+        <DarkButton title="cancel" onClick={onCancel} />
+        <DarkButton title="add expense" type="submit" onClick={() => {}} />
       </ExpenseActions>
     </form>
   );

@@ -8,8 +8,8 @@ import {
 } from "./ExpenseFilter.style";
 
 interface ExpenseFilterProps {
-  currentYear: number;
-  onFilterByYear(year: number): void;
+  currentYear: string;
+  onFilterByYear(year: string): void;
 }
 
 export const ExpensesFilter = ({
@@ -22,8 +22,9 @@ export const ExpensesFilter = ({
         <ExpensesFilterLabel>Filter by year</ExpensesFilterLabel>
         <ExpensesFilterSelect
           value={currentYear}
-          onChange={(e) => onFilterByYear(+e.target.value)}
+          onChange={(e) => onFilterByYear(e.target.value)}
         >
+          <option value="allPeriod">all period</option>
           <option value="2022">2022</option>
           <option value="2021">2021</option>
           <option value="2020">2020</option>
